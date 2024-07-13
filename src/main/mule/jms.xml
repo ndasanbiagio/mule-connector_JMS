@@ -10,7 +10,6 @@ http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/
       http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
       http://www.mulesoft.org/schema/mule/http 
       http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
-
 	<jms:config name="JMS_Config" doc:name="JMS Config" doc:id="612faeab-4bf2-4342-95c4-48e601847252" >
 		<jms:active-mq-connection >
 			<jms:caching-strategy >
