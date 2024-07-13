@@ -1,0 +1,39 @@
+<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" 
+      xmlns:http="http://www.mulesoft.org/schema/mule/http" 
+      xmlns:jms="http://www.mulesoft.org/schema/mule/jms" 
+      xmlns="http://www.mulesoft.org/schema/mule/core" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd 
+      http://www.mulesoft.org/schema/mule/core 
+      http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+      http://www.mulesoft.org/schema/mule/jms 
+      http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+      http://www.mulesoft.org/schema/mule/http 
+      http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+
+    <!-- Configuración Global de JMS -->
+
+    <!-- Ejemplo de uso en un flujo -->
+	<jms:config name="JMS_Config" doc:name="JMS Config" doc:id="612faeab-4bf2-4342-95c4-48e601847252" >
+		<jms:active-mq-connection >
+			<jms:caching-strategy >
+				<jms:no-caching />
+			</jms:caching-strategy>
+			<jms:factory-configuration />
+		</jms:active-mq-connection>
+	</jms:config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="455eed60-8075-4fae-9b5b-4f72449351f4" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="jmsFlow" doc:id="14bb85b3-b64d-4edb-9b12-165fb3040809" >
+		<http:listener doc:name="Listener" doc:id="46169875-ef60-4571-b375-46b0c62f43cf" config-ref="HTTP_Listener_config" path="/hello"/>
+		<jms:publish doc:name="Publish" doc:id="2279ede7-51f7-4ce1-93c0-8c4bd1295262" destination="testQueue"/>
+		<logger level="INFO" doc:name="Logger" doc:id="75586fb9-0735-448e-9249-579872b15200" message="#[payload]"/>
+	</flow>
+	<flow name="jmsFlow1" doc:id="aea75a4e-8da8-4240-bba2-17270552c5c6" >
+		<jms:listener doc:name="On New Message" doc:id="6fc38274-4fa9-4921-8d64-e9b7debfb949" config-ref="JMS_Config" destination="testQueue"/>
+		<logger level="INFO" doc:name="Logger" doc:id="48f2159c-2d4b-429e-99b1-c1bd97eef9ef" message="#[payload]"/>
+		<set-payload value="Response sent" doc:name="Set Payload" doc:id="10da0b2e-1163-4a71-965f-4f5f4395f277" />
+	</flow>
+
+</mule>
