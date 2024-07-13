@@ -18,8 +18,7 @@ http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/
 			<jms:factory-configuration />
 		</jms:active-mq-connection> 
 	</jms:config>
-	
-	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="455eed60-8075-4fae-9b5b-4f72449351f4" >
+		<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="455eed60-8075-4fae-9b5b-4f72449351f4" >
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
 	<flow name="jmsFlow" doc:id="14bb85b3-b64d-4edb-9b12-165fb3040809" >
